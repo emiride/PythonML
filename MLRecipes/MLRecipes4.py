@@ -1,18 +1,7 @@
-import random
-class ScrappyKNN():
-    def fit(self, X_train, y_train):
-        self.X_train = X_train
-        self.y_train = y_train
-
-    def predict(self, X_test):
-        predictions = []
-        for row in X_test:
-            label = random.choice(self.y_train)
-        return predictions
 
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
-#from sklearn import tree
+from sklearn import tree
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 
@@ -22,8 +11,8 @@ X = iris.data
 y = iris.target
 
 X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=.5)
-#my_classifier = tree.DecisionTreeClassifier()
-my_classifier = ScrappyKNN()
+my_classifier = tree.DecisionTreeClassifier()
+
 
 
 my_classifier.fit(X_train, y_train)
