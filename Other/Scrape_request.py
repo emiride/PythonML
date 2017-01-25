@@ -10,8 +10,8 @@ sacijenom = "sacijenom=sacijenom"
 stranica = 1
 #olx.ba gets internal error (status code 500) after around 500 requests in a row. We need to pause for 10 seconds after each 400 elements
 links = []
-file = open('pik_links.txt', 'w')
-s = requests.session()
+file = open('olx_links.txt', 'w')
+s = requests.Session()
 while True:
     url = url + kategorija + "&" + "stranica=" + str(stranica) + "&" + vrsta + "&" + sacijenom
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'}
@@ -24,7 +24,7 @@ while True:
         file.write("%s\n" % link.a["href"])
     stranica += 1
     if r.status_code != 200:
-        s = requests.session()
+        s = requests.Session()
         time.sleep(10)
-    print(stranica, len(links), r.status_code, r.cookies)
+    print(stranica, len(links), r.status_code, r.cookies, r.raise_for_status())
 file.close()
