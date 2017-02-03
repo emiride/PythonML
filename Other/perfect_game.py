@@ -26,6 +26,7 @@ r = s.get(url)
 page_content = r.content.decode()
 soup = BeautifulSoup(page_content, "html.parser")
 
+Name_and_Surname = soup.select_one("span[id=ContentPlaceHolder1_Bio1_lblName]").text
 HS_Grad = soup.select_one("span[id=ContentPlaceHolder1_Bio1_lblGradYear]").text
 Age = soup.select_one("span[id=ContentPlaceHolder1_Bio1_lblAgeNow]").text
 Age_on_2017_draft = soup.select_one("span[id=ContentPlaceHolder1_Bio1_lblAgeAtDraft]").text
@@ -38,7 +39,17 @@ School = soup.select_one("span[id=ContentPlaceHolder1_Bio1_lblHS]").text
 Hometown = soup.select_one("span[id=ContentPlaceHolder1_Bio1_lblHomeTown]").text
 Summer_team = soup.select_one("span[id=ContentPlaceHolder1_Bio1_lblSummerTeam]").text
 Fall_team = soup.select_one("span[id=ContentPlaceHolder1_Bio1_lblFallTeam]").text
-list.append([HS_Grad, Age, Age_on_2017_draft, Position_primary, Position_other, Height, Weight, BT, School, Hometown, Summer_team, Fall_team])
+
+contact_link = soup.find('li', id='ContentPlaceHolder1_Bio1_liContactInfo').contents
+contact_url = "http://www.perfectgame.org/Players/PlayerProfile_ContactInfo.aspx?ID=J34665D097ED"
+
+r = s.get(url)
+page_content = r.content.decode()
+soup = BeautifulSoup(page_content, "html.parser")
+
+
+list.append([Name_and_Surname, HS_Grad, Age, Age_on_2017_draft, Position_primary, Position_other, Height, Weight, BT, School, Hometown, Summer_team, Fall_team])
+print(contact_link)
 print(list, len(list[0]))
 
 
